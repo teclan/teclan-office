@@ -21,7 +21,7 @@ public class WordTest {
         map.put("owner","张三");
         map.put("drivingLicense","12345qwert");
         map.put("phone","13366668888");
-        WordFactory.export(templatePat,map,outputFile);
+        WordFactory.export(templatePat,map,outputFile,true);
     }
 
 
