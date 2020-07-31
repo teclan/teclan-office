@@ -16,3 +16,14 @@
 - 常见问题
  - 输出带表格的word以上转换可能存在异常，详情请参考[https://www.cnblogs.com/w-yu-chen/p/11402098.html](https://www.cnblogs.com/w-yu-chen/p/11402098.html)
  或`documnets/freemarker导出带表格Word文档异常处理.xps`
+ 
+ ## OpenOffice
+ 
+ > [http://www.openoffice.org/download/](http://www.openoffice.org/download/)
+ 
+ - windows
+ 
+ ``` 
+cd C:\Program Files (x86)\OpenOffice 4\program
+soffice -headless -accept="socket,host=127.0.0.1,port=8100;urp;
+```
