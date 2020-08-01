@@ -4,11 +4,10 @@ import java.io.*;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import com.itextpdf.text.pdf.BaseFont;
 import fr.opensagres.xdocreport.core.utils.StringUtils;
@@ -99,6 +98,17 @@ public class POIFactory {
      */
     public static void doc2Html(String doc, final String imageDir, String html) throws Exception {
         doc2Html(new File(doc),new File(imageDir),new File(html),false);
+    }
+
+    /**
+     * 2003版本word转换成html
+     * @param doc 源文件路径
+     * @param imageDir 转换html后的图片存储路径
+     * @param html 输出的 html 文件路径
+     * @throws Exception 能的异常
+     */
+    public static void doc2Html(String doc, final String imageDir, String html,Boolean cover) throws Exception {
+        doc2Html(new File(doc),new File(imageDir),new File(html),cover);
     }
 
 
@@ -295,6 +305,26 @@ public class POIFactory {
                 }
             }
         }
+    }
+
+
+    public static void xml2Html(String xml,String html) throws Exception{
+        //创建XML的文件输入流
+        FileInputStream fis=new FileInputStream("F:/123.xml");
+        Source source=new StreamSource(fis);
+
+        //创建XSL文件的输入流
+        FileInputStream fis1=new FileInputStream("F:/123.xsl");
+        Source template=new StreamSource(fis1);
+
+        PrintStream stm=new PrintStream(new File("F:/123.html"));
+        Result result=new StreamResult(stm);
+        //根据XSL文件创建准个转换对象
+        Transformer transformer=TransformerFactory.newInstance().newTransformer(template);
+        //处理xml进行交换
+        transformer.transform(source, result);
+        fis1.close();
+        fis.close();
     }
 }
 

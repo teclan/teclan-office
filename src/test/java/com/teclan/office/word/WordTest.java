@@ -1,6 +1,9 @@
 package com.teclan.office.word;
 
+import com.teclan.office.OpenOffice;
+import com.teclan.office.POIFactory;
 import com.teclan.office.WordFactory;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -42,4 +45,13 @@ public class WordTest {
         map.put("d2","30");
         WordFactory.export(templatePat,map,outputFile,true);
     }
+
+    @Test
+    public void doc2Pdf() throws Exception {
+     String doc = "output/工作证明.doc";
+        String pdf = "output/工作证明.pdf";
+
+        OpenOffice.convert(doc,pdf);
+    }
+
 }
