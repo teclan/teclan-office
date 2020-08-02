@@ -1,11 +1,18 @@
 package com.teclan.office;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerFontProvider;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.util.Locale;
 import java.util.Map;
 
 public class WordFactory {
@@ -34,7 +41,7 @@ public class WordFactory {
      */
     public static void export(String templatePath, Map<String, Object> content, String outputFile,Boolean cover) throws Exception {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_29);
-        configuration.setDefaultEncoding("UTF-8");
+//        configuration.setDefaultEncoding("GBK");
         File outFile = new File(outputFile);
         try {
             File template = new File(templatePath);
@@ -54,7 +61,7 @@ public class WordFactory {
             }
             outFile.getParentFile().mkdirs();
 
-            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));
+            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile),"GBK"));
             t.process(content, out);
             LOGGER.error("导出word文档成功，模板 {},输出路径 {}", templatePath, outFile.getAbsolutePath());
         } catch (Exception e) {
@@ -63,4 +70,23 @@ public class WordFactory {
             throw e;
         }
     }
+
+    public static void html2Pdf(String html,String pdf,String font) throws Exception {
+        LOGGER.info("FreeMarker 文档转换开始,源 {},目标 {}", html, pdf);
+        if(font==null){
+            font="simhei.ttf";
+        }
+
+        Document document = new Document();
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdf));
+        document.open();
+        XMLWorkerFontProvider fontImp = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
+//        fontImp.register(font);
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document,
+                new FileInputStream(html), null, Charset.forName("UTF-8"), fontImp);
+        document.close();
+        LOGGER.info("FreeMarker 文档转换完成,源 {},目标 {}", html, pdf);
+    }
+
+
 }

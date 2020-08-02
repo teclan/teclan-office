@@ -17,6 +17,9 @@
  - 输出带表格的word以上转换可能存在异常，详情请参考[https://www.cnblogs.com/w-yu-chen/p/11402098.html](https://www.cnblogs.com/w-yu-chen/p/11402098.html)
  或`documnets/freemarker导出带表格Word文档异常处理.xps`
  
+ - 针对以上问题，若模板文件为真实的.docx文件（制作模板完成后，另存为，选择文件格式`Microsoft Word 文件(*.docx)`）,可以直接将文件另存为 html 文件,获取html源码，之后新建一个 .ftl 文件，
+ 将 html 源码覆盖 .ftl 文件内容即可，切记请勿直接将 .html 直接另存为 .ftl，中文将有编码问题
+ 
  ## OpenOffice
  
  > [http://www.openoffice.org/download/](http://www.openoffice.org/download/)

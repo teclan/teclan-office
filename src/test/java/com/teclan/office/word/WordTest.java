@@ -4,8 +4,13 @@ import com.teclan.office.OpenOffice;
 import com.teclan.office.POIFactory;
 import com.teclan.office.WordFactory;
 import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
+import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +18,8 @@ public class WordTest {
 
     @Test
     public void tableOutPutTest() throws Exception {
-        String templatePat = "template\\word\\车辆信息.ftl";
-        String outputFile = "output/车辆信息.docx";
+        String templatePat = "template\\word\\车辆信息1.ftl";
+        String outputFile = "output/车辆信息1.docx";
 
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("licensePlate","桂C88888");
@@ -48,10 +53,17 @@ public class WordTest {
 
     @Test
     public void doc2Pdf() throws Exception {
-     String doc = "output/工作证明.doc";
-        String pdf = "output/工作证明.pdf";
+        String doc = "output/车辆信息1.docx";
 
-        OpenOffice.convert(doc,pdf);
+        String html = "output/车辆信息1.html";
+
+        String pdf = "output/车辆信息1.pdf";
+//
+        POIFactory.docx2Html(doc,"/output/images",html);
+
+        WordFactory.html2Pdf(html,pdf,null);
+
+//        OpenOffice.convert(doc,pdf,true);
     }
 
 }

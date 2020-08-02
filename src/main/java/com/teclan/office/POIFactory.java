@@ -96,7 +96,7 @@ public class POIFactory {
      * @param html 输出的 html 文件路径
      * @throws Exception 能的异常
      */
-    public static void doc2Html(String doc, final String imageDir, String html) throws Exception {
+    public static void doc2Html(String doc, String imageDir, String html) throws Exception {
         doc2Html(new File(doc),new File(imageDir),new File(html),false);
     }
 
@@ -107,7 +107,7 @@ public class POIFactory {
      * @param html 输出的 html 文件路径
      * @throws Exception 能的异常
      */
-    public static void doc2Html(String doc, final String imageDir, String html,Boolean cover) throws Exception {
+    public static void doc2Html(String doc, String imageDir, String html,Boolean cover) throws Exception {
         doc2Html(new File(doc),new File(imageDir),new File(html),cover);
     }
 
@@ -263,6 +263,7 @@ public class POIFactory {
                                           Map<String, String> params) throws Exception {
         XWPFDocument doc = new XWPFDocument(source);
         paragraphReplace(doc.getParagraphs(), params);
+
         for (XWPFTable table : doc.getTables()) {
             for (XWPFTableRow row : table.getRows()) {
                 for (XWPFTableCell cell : row.getTableCells()) {
